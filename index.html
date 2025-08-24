@@ -3,540 +3,580 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Search Engine</title>
+    <title>MySQL Download</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            background-image: url('https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                              url('https://t3.ftcdn.net/jpg/09/50/17/36/360_F_950173607_JeNU7aTwlEiG2pioBerkr9ZNW5KauTKq.jpg');
-            background-size: cover, auto;
-            background-position: center top, center bottom;
-            background-repeat: no-repeat, no-repeat;
-            background-attachment: fixed, scroll;
-            color: #333;
+            box-sizing: border-box;
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 117, 143, 0.1));
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 80px;
+            padding: 60px 0 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: #00758F;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 117, 143, 0.5);
+            border-bottom: 2px solid rgba(0, 117, 143, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .creator-info, .contact-info, .app-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .creator-detail, .app-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .label {
+            color: #aaa;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .value {
+            color: #fff;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
+            color: #00758F;
+        }
+
+        .contact-icon {
+            font-size: 18px;
+            width: 25px;
+            text-align: center;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+        }
+
+        .contact-link {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .contact-link:hover {
+            color: #00758F;
+            border-bottom-color: #00758F;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            color: #ddd;
+            position: relative;
+            padding-left: 20px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .features-list li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #00758F;
+            font-size: 12px;
+            filter: drop-shadow(0 0 5px rgba(0, 117, 143, 0.5));
+        }
+
+        .features-list li:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+            padding: 25px 0;
+        }
+
+        .footer-bottom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            color: #aaa;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid transparent;
+        }
+
+        .footer-links a:hover {
+            color: #00758F;
+            border-color: rgba(0, 117, 143, 0.3);
+            background: rgba(0, 117, 143, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+                gap: 30px;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 0 20px;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .creator-detail, .app-detail {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .value {
+                text-align: left;
+            }
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://ik.imagekit.io/abhay2021/pexels-asadphoto-1456291.jpg?updatedAt=1755544024145');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow-x: hidden;
         }
 
         .container {
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            width: 80%;
-            max-width: 800px;
+            width: 100%;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mysql-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .mysql-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00758F;
+            text-shadow: 0 0 10px rgba(0, 117, 143, 0.5);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(45deg, #fff, #00758F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 30px rgba(0, 117, 143, 0.5)); }
+        }
+
+        .download-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 90%;
+            max-width: 1200px;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .download-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            min-height: 400px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .download-section:hover::before {
+            opacity: 1;
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .download-section:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .platform-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .download-section:hover .platform-logo {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.5));
+        }
+
+        .platform-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .platform-description {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00758F, #0A4B5C);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 117, 143, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 117, 143, 0.5);
+            background: linear-gradient(45deg, #0A4B5C, #00758F);
+        }
+
+        .intro-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 30px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        h1 {
-            color: #007bff;
-            margin-bottom: 20px;
-        }
-
-        .search-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        #search-input {
-            padding: 10px;
-            width: 60%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        #search-button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 10px;
-        }
-
-        #search-button:hover {
-            background-color: #0056b3;
-        }
-
-        .options {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .option-button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .option-button:hover {
-            background-color: #218838;
-        }
-
-        #results {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        #results ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #results li {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        #results li:last-child {
-            border-bottom: none;
-        }
-
-        #loading {
-            text-align: center;
-            padding: 10px;
-            display: none;
-        }
-
-        #end-message {
-            text-align: center;
-            padding: 10px;
-            display: none;
-        }
-
-        /* तीन-डॉट मेनू स्टाइल */
-        .menu-container {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-        }
-
-        #menu-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            padding: 5px;
-            color: white;
-            font-weight: bold;
-        }
-
-        #menu-button:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        #menu-list {
-            position: absolute;
-            top: 30px;
-            right: 0;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            width: 150px;
-            text-align: left;
-            display: none;
-            z-index: 1;
-        }
-
-        #menu-list ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #menu-list li {
-            padding: 5px;
-            cursor: pointer;
-        }
-
-        #menu-list li:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* लैंग्वेज ऑप्शन स्टाइल */
-        #language-options {
-            display: none;
-            margin-top: 5px;
-            padding-left: 10px;
-        }
-
-        #language-options li {
-            padding: 3px;
-            cursor: pointer;
-        }
-
-        /* History list style */
-        #history-list {
-            display: none;
-            position: absolute;
-            top: 30px; /* Position below the options */
-            right: 0;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            width: 150px;
-            text-align: left;
-            z-index: 1;
-        }
-
-        #history-list ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #history-list li {
-            padding: 5px;
-            cursor: pointer;
-        }
-
-        #history-list li:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Style for each row in the history list*/
-        .history-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        /* Close (X) button Style */
-        .history-row button {
-          background: none;
-          border: none;
-          cursor: pointer;
-          font-size: 12px;
-          color: red; /* Color is Red */
-          padding: 0; /* Remove padding to reduce the size */
-        }
-          /* लॉगिन बटन के लिए */
-        .login-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        #login-button {
-            background-color: #4285f4; /* Google Blue */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        #login-button:hover {
-            background-color: #357ae8;
+        @media (max-width: 768px) {
+            .download-sections {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                gap: 30px;
+                width: 95%;
+            }
+            
+            .download-section {
+                min-height: 350px;
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .container {
+                padding: 30px 15px;
+            }
+            
+            .platform-logo {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .platform-title {
+                font-size: 22px;
+            }
+            
+            .platform-description {
+                font-size: 14px;
+            }
+            
+            .mysql-logo {
+                width: 80px;
+            }
+            
+            .mysql-text {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>मेरा खोज इंजन</h1>
+        <img src="https://ik.imagekit.io/abhay2021/mysql_5968363-removebg-preview.png?updatedAt=1755524544394" alt="MySQL Logo" class="mysql-logo">
+        <div class="mysql-text">MySQL</div>
+        
+        <h1>Download</h1>
+        
+        <p class="intro-text">
+            Get the latest version of MySQL database management system for your platform. 
+            Choose your operating system below and start building powerful, scalable applications.
+        </p>
 
-         <!-- Login Button -->
-        <div class="login-container">
-            <button id="login-button" onclick="openLoginPage()">Login</button>
-        </div>
+        <div class="download-sections">
+            <div class="download-section" onclick="window.open('https://mega.nz/file/eZdyyDJI#mbXi_ixNIEB1RKlzRlHbpY9QujFnoi_7oyHz8Rw4MyQ', '_blank')">
+                <img src="https://images.seeklogo.com/logo-png/40/2/windows-11-icon-logo-png_seeklogo-406208.png" alt="Windows Logo" class="platform-logo">
+                <h3 class="platform-title">Windows</h3>
+                <p class="platform-description">
+                    Compatible with Windows 10, 11 and Server editions. Includes MySQL Server, 
+                    Workbench, and essential tools for database development and administration.
+                </p>
+                <span class="download-btn">Download for Windows</span>
+            </div>
 
-        <!-- तीन-डॉट मेनू -->
-        <div class="menu-container">
-            <button id="menu-button">⋮</button>
-            <div id="menu-list">
-                <ul>
-                    <li onclick="openHistoryPage()">History</li>
-                    <li onclick="toggleLanguageOptions()">Language</li>
-                </ul>
-                <ul id="language-options">
-                    <li onclick="setLanguage('en')">English</li>
-                    <li onclick="setLanguage('hi')">Hindi</li>
-                </ul>
-              <div id="history-list">
-                <ul>
-                  <!-- Search history will be displayed here -->
-                </ul>
-              </div>
+            <div class="download-section" onclick="window.open('https://mega.nz/file/bRdRHTYb#kaJt0JlxxdMJpt9qDzlj8w9P5XD7rTFpfro-ksTkBX0', '_blank')">
+                <img src="https://ik.imagekit.io/abhay2021/Android-Logo-removebg-preview.png?updatedAt=1756055974115" alt="Android Logo" class="platform-logo">
+                <h3 class="platform-title">Android</h3>
+                <p class="platform-description">
+                    MySQL client and tools optimized for Android devices. Perfect for mobile 
+                    development, database management, and on-the-go database administration.
+                </p>
+                <span class="download-btn">Download for Android</span>
             </div>
         </div>
-
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="खोजें...">
-            <button id="search-button">Search</button>
-        </div>
-
-        <div class="options">
-            <button class="option-button" onclick="openWebsite('https://unsplash.com/?account_status=confirmed')">Images</button>
-            <button class="option-button" onclick="openWebsite('https://zoom.earth/maps/satellite/#view=21.907,72.105,6z')">Weather</button>
-            <button class="option-button" onclick="openWebsite('https://www.youtube.com/')">Youtube</button>
-        </div>
-
-        <div id="results">
-            <!-- यहाँ पर खोज परिणाम दिखेंगे -->
-        </div>
-
-        <div id="loading">Loading...</div>
-        <div id="end-message">No more Results.</div>
     </div>
-
-    <script>
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-        const resultsDiv = document.getElementById('results');
-        const loadingDiv = document.getElementById('loading');
-        const endMessageDiv = document.getElementById('end-message');
-        const menuButton = document.getElementById('menu-button');
-        const menuListDiv = document.getElementById('menu-list');
-        const languageOptionsList = document.getElementById('language-options');
-        const historyListDiv = document.getElementById('history-list');  // Get the history list DIV
-        const apiKey = 'AIzaSyAdn0FNrxGJS5hl4MeYGnU0S9x9YOzOkv4';
-        const cxId = 'c4e54652b4cec47e1';
-
-        let searchTerm = '';
-        let startIndex = 1;
-        let isLoading = false;
-        let searchHistory = []; //Store the current searching process on history list
-
-         // Validate URL
-         function isValidUrl(urlString) {
-            try {
-            return Boolean(new URL(urlString));
-            }
-            catch(e){
-            return false;
-            }
-         }
-
-        // Secure open a new Tab and validate before URL open the tab
-         function secureOpen(url) {
-          if (isValidUrl(url)) {
-              window.open(url, '_blank');  // Open the new page
-            } else {
-             alert ("invalid URL ,cannot be open")
-            }
-         }
-
-        // Function to load search history from local storage
-        function loadSearchHistory() {
-          const storedHistory = localStorage.getItem('searchHistory');
-          searchHistory = storedHistory ? JSON.parse(storedHistory) : [];
-        }
-
-        // Load history
-        loadSearchHistory();
-
-        // Function to save history in local storage
-        function saveSearchHistory() {
-          localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-        }
-
-        // Function to display search history (not used in main page anymore)
-        function removeHistory(index) {
-            console.log("Removing index", index, " from history.");
-
-            searchHistory.splice(index, 1);
-
-            saveSearchHistory();
-            displaySearchHistory();
-        }
-
-        // Function to add new item to search history
-        function addSearchToHistory(term, url) {
-          console.log("Adding term to history", term,url);
-          const timestamp = new Date().getTime(); // Capture timestamp
-          searchHistory.unshift({ term: term, url: url, timestamp: timestamp });
-
-          // Limit the length of search history to save just the last search.
-          searchHistory = searchHistory.slice(0, 10);
-
-          saveSearchHistory(); // Store current update
-        }
-
-        // Listen the Menu and list
-        menuButton.addEventListener('click', () => {
-            console.log('Menu button clicked');
-            menuListDiv.style.display = menuListDiv.style.display === 'none' ? 'block' : 'none';
-            languageOptionsList.style.display = 'none';
-          historyListDiv.style.display = 'none'; // Make sure that Hide History
-        });
-
-        // Hide when you click outside
-        document.addEventListener('click', (event) => {
-            if (!menuListDiv.contains(event.target) && event.target !== menuButton) {
-                 console.log('Clicked outside menu');
-                menuListDiv.style.display = 'none';
-                languageOptionsList.style.display = 'none';
-              historyListDiv.style.display = 'none'; // Hidden if it outside,
-
-            }
-        });
-
-        // Basic Functions
-        function openWebsite(url) {
-            window.open(url, '_blank');
-        }
-
-        function startSearch() {
-             console.log('Search button clicked');
-            searchTerm = searchInput.value;
-
-            if (!searchTerm) {
-                alert('Please Insert the term you want to search!.');
-                return;
-            }
-            resultsDiv.innerHTML = '';
-            startIndex = 1;
-            endMessageDiv.style.display = 'none';
-            addSearchToHistory(searchTerm); //Add New Search History
-            loadResults();
-        }
-
-        async function performSearch() {
-            if (isLoading) return;
-            isLoading = true;
-            loadingDiv.style.display = 'block';
-
-            const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cxId}&q=${searchTerm}&start=${startIndex}`;
-
-            console.log("API URL:", apiUrl);
-
-            try {
-                const response = await fetch(apiUrl);
-
-                console.log("API Response:", response);
-
-                if (!response.ok) {
-                    console.error('API Response Status:', response.status);
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                console.log("API Data:", data);
-
-                if (!data.items || data.items.length === 0) {
-                    endMessageDiv.style.display = 'block';
-                } else {
-                    displayResults(data.items);
-                     if (data.items.length > 0 && data.items[0].link){
-                       addSearchToHistory(searchTerm, data.items[0].link);   // Add the first results for the add to the history.
-                     }
-
-                    startIndex += 10;
-                }
-
-            } catch (error) {
-                console.error('Error in search:', error);
-                resultsDiv.innerHTML += '<p>An error occurred during the search. Please try again later.</p>';
-            } finally {
-                isLoading = false;
-                loadingDiv.style.display = 'none';
-            }
-        }
-
-        function displayResults(results) {
-            const ul = document.createElement('ul');
-            results.forEach(result => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = result.link;
-                a.textContent = result.title;
-                a.target = "_blank";
-                li.appendChild(a);
-
-                const snippet = document.createElement('p');
-                snippet.textContent = result.snippet;
-                li.appendChild(snippet);
-
-                ul.appendChild(li);
-            });
-
-            resultsDiv.appendChild(ul);
-        }
-
-        function loadResults() {
-            performSearch();
-        }
-
-        window.addEventListener('scroll', () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
-                loadResults();
-            }
-        });
-
-        searchButton.addEventListener('click', startSearch); // event listener
-
-        searchInput.addEventListener('keydown', function(event) {
-          if (event.key === 'Enter') {
-           startSearch();
-          }
-        });
-
-        function openHistoryPage() {
-          menuListDiv.style.display = 'none';  // Make Sure List Hidden
-          window.open('history.html', '_blank'); // open New Tab
-        }
-
-         // Code for Toggle Options and show the options or hide them.
-        function toggleLanguageOptions() {
-             console.log ("click toggleLanguageOptions and show the options");
-               languageOptionsList.style.display = languageOptionsList.style.display === 'none' ? 'block' : 'none';
-                 menuListDiv.style.display = 'none';
-                 historyListDiv.style.display = 'none'; // Ensure History is Hidden
-
-         }
-
-        function toggleHistoryMenu() {
-          openHistoryPage();
-        }
-
-         // Code for  Language Settings
-        function setLanguage(lang) {
-          alert(`Language Set to: ${lang}`);
-          menuListDiv.style.display = 'none';
-          languageOptionsList.style.display = 'none';
-        }
-
-          // Code for  OPen Login Page
-         function openLoginPage() {
-           window.open('login.html', '_blank');
-        }
-
-        // Message handle event from popups
-        window.addEventListener('message', function(event) {
-         console.log("message from popup", event);
-                // Check only this code is running from a popup in that same origin.
-                if (event.origin === window.location.origin) {
-                  searchInput.value = event.data;
-                  startSearch();
-                }
-         }, false);
-
-        // Initializing
-        console.log('Code Initialized!');
-    </script>
-
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>About the Creator</h3>
+                <div class="creator-info">
+                    <div class="creator-detail">
+                        <span class="label">Created by:</span>
+                        <span class="value">Abhay Bajpai</span>
+                    </div>
+                    <div class="creator-detail">
+                        <span class="label">Role:</span>
+                        <span class="value">Full-Stack Developer</span>
+                    </div>
+                    <div class="creator-detail">
+                        <span class="label">Launch Date:</span>
+                        <span class="value">August 24, 2025</span>
+                    </div>
+                    <div class="creator-detail">
+                        <span class="label">Location:</span>
+                        <span class="value">Uttar Pradesh, India</span>
+                    </div>
+                    <div class="creator-detail">
+                        <span class="label">Experience:</span>
+                        <span class="value">2+ Years</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section contact">
+                <h3>Contact Information</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="contact-icon">✉</i>
+                        <a href="mailto:abhaybajpai2021@gmail.com" class="contact-link">
+                            abhaybajpai2021@gmail.com
+                        </a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="contact-icon">📍</i>
+                        <span>Uttar Pradesh, India</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="contact-icon">🌐</i>
+                        <span>Available Worldwide</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section app-info">
+                <h3>Application Details</h3>
+                <div class="app-details">
+                    <div class="app-detail">
+                        <span class="label">Version:</span>
+                        <span class="value">MySQL 8.0 Community Simulator</span>
+                    </div>
+                    <div class="app-detail">
+                        <span class="label">License:</span>
+                        <span class="value">GPL License</span>
+                    </div>
+                    <div class="app-detail">
+                        <span class="label">Mode:</span>
+                        <span class="value">Offline</span>
+                    </div>
+                    <div class="app-detail">
+                        <span class="label">Platforms:</span>
+                        <span class="value">Windows, Android</span>
+                    </div>
+                    <div class="app-detail">
+                        <span class="label">File Size:</span>
+                        <span class="value">~150MB - 300MB</span>
+                    </div>
+                    <div class="app-detail">
+                        <span class="label">Downloads:</span>
+                        <span class="value">5+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section features">
+                <h3>Key Features</h3>
+                <ul class="features-list">
+                    <li>High Performance Database Engine</li>
+                    <li>ACID Compliance</li>
+                    <li>Cross-Platform Compatibility</li>
+                    <li>Robust Security Features</li>
+                    <li>Scalable Architecture</li>
+                    <li>Comprehensive Documentation</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Abhay Bajpai. All rights reserved. | MySQL is a trademark of Oracle Corporation.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#support">Support</a>
+                    <a href="#changelog">Changelog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
